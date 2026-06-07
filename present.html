@@ -1,0 +1,267 @@
+# FILE 2 — present.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>LifeOS Presentation</title>
+
+    <link rel="stylesheet" href="background.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="presentation-body">
+
+    <!-- Animated Background -->
+    <div class="presentation-background"></div>
+
+    <!-- Floating Glow Orbs -->
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+
+    <!-- Presentation Header -->
+    <header class="presentation-header">
+
+        <div class="brand-left">
+
+            <div class="mini-hexagon">
+                <div class="mini-core"></div>
+            </div>
+
+            <h1>LifeOS</h1>
+
+        </div>
+
+        <div class="header-center">
+            A COUNCIL OF SIX · MULTI-AGENT ORCHESTRATION
+        </div>
+
+        <div class="slide-counter">
+            <span id="currentSlide">01</span>
+            /
+            <span id="totalSlides">06</span>
+        </div>
+
+    </header>
+
+    <!-- Main Presentation -->
+    <main class="presentation-container">
+
+        <!-- Navigation Hint -->
+        <div class="nav-hint">
+            ← → Navigate Slides
+        </div>
+
+        <!-- Slides Wrapper -->
+        <div class="slides-wrapper">
+
+            <!-- SLIDE 1 -->
+            <section class="slide active-slide">
+
+                <img src="slides/slide1.png" class="slide-image">
+
+                <div class="slide-overlay"></div>
+
+                <div class="slide-caption">
+                    <h2>LifeOS</h2>
+
+                    <p>
+                        A Council of AI Agents That Debates Your Future — Then Executes It
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- SLIDE 2 -->
+            <section class="slide">
+
+                <img src="slides/slide2.png" class="slide-image">
+
+                <div class="slide-overlay"></div>
+
+                <div class="slide-caption">
+                    <h2>Life Decisions Are Multi-Dimensional</h2>
+
+                    <p>
+                        Career · Finance · Time · Learning · Health · Accountability
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- SLIDE 3 -->
+            <section class="slide">
+
+                <img src="slides/slide3.png" class="slide-image">
+
+                <div class="slide-overlay"></div>
+
+                <div class="slide-caption">
+                    <h2>Multi-Agent Debate Architecture</h2>
+
+                    <p>
+                        Redis Pub/Sub · LangGraph · W&B Weave · Real Side Effects
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- SLIDE 4 -->
+            <section class="slide">
+
+                <img src="slides/slide4.png" class="slide-image">
+
+                <div class="slide-overlay"></div>
+
+                <div class="slide-caption">
+                    <h2>Live Deliberation</h2>
+
+                    <p>
+                        Real disagreement. Real conflict resolution.
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- SLIDE 5 -->
+            <section class="slide">
+
+                <img src="slides/slide5.png" class="slide-image">
+
+                <div class="slide-overlay"></div>
+
+                <div class="slide-caption">
+                    <h2>Execution</h2>
+
+                    <p>
+                        Advice is cheap. Action matters.
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- SLIDE 6 -->
+            <section class="slide">
+
+                <img src="slides/slide6.png" class="slide-image">
+
+                <div class="slide-overlay"></div>
+
+                <div class="slide-caption">
+                    <h2>The Future of AI Is Coordination</h2>
+
+                    <p>
+                        From assistants → to intelligent societies of specialists
+                    </p>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Cinematic Noise -->
+    <div class="film-grain"></div>
+
+    <script>
+
+        const slides = document.querySelectorAll(".slide");
+
+        let current = 0;
+
+        const currentSlideText = document.getElementById("currentSlide");
+        const totalSlideText = document.getElementById("totalSlides");
+
+        totalSlideText.innerText = String(slides.length).padStart(2, '0');
+
+        function updateSlides(index) {
+
+            slides.forEach((slide, i) => {
+
+                slide.classList.remove(
+                    "active-slide",
+                    "prev-slide",
+                    "next-slide"
+                );
+
+                if(i === index){
+                    slide.classList.add("active-slide");
+                }
+                else if(i < index){
+                    slide.classList.add("prev-slide");
+                }
+                else{
+                    slide.classList.add("next-slide");
+                }
+
+            });
+
+            currentSlideText.innerText =
+                String(index + 1).padStart(2, '0');
+        }
+
+        function nextSlide(){
+
+            if(current < slides.length - 1){
+                current++;
+                updateSlides(current);
+            }
+
+        }
+
+        function prevSlide(){
+
+            if(current > 0){
+                current--;
+                updateSlides(current);
+            }
+
+        }
+
+        document.addEventListener("keydown", (e)=>{
+
+            if(
+                e.key === "ArrowRight" ||
+                e.key === " " ||
+                e.key === "PageDown"
+            ){
+                nextSlide();
+            }
+
+            if(
+                e.key === "ArrowLeft" ||
+                e.key === "PageUp"
+            ){
+                prevSlide();
+            }
+
+        });
+
+        document.addEventListener("wheel", (e)=>{
+
+            if(e.deltaY > 0){
+                nextSlide();
+            }
+            else{
+                prevSlide();
+            }
+
+        });
+
+        document.addEventListener("click", ()=>{
+            nextSlide();
+        });
+
+        updateSlides(current);
+
+    </script>
+
+</body>
+</html>
+```
